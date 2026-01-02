@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${APP_NAME}
+  labels:
+    app: ${APP_NAME}
+spec:
+  replicas: ${REPLICAS}
+  selector:
+    matchLabels:
+      app: ${APP_NAME}
+  template:
+    metadata:
+      labels:
+        app: ${APP_NAME}
+    spec:
+      containers:
+        - name: ${APP_NAME}
+          image: ${IMAGE_NAME}:${APP_VERSION}
+          env:
+            - name: APP_VERSION
+              value: ${APP_VERSION}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: ${CONTAINER_PORT}
